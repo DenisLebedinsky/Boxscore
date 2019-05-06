@@ -2,27 +2,31 @@ const mongoose = require('../libs/mongoose'),
 	Schema = mongoose.Schema;
 
 const schema = new Schema({
-	id: {
-		type: String,
-		unique: true,
-		required: true
-	},
-	name: {
-		type: String,
-		required: true
-	}
-
+  id: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  team_id: String,
+  abbreviation: String,
+  active: Boolean,
+  first_name: String,
+  last_name: String,
+  conference: String,
+  division: String,
+  site_name: String,
+  city: String,
+  state: String,
+  full_name: String
 });
 
-schema.statics.findOnList = function (id, callback) {
-	let category = this;
-	category.findOne({ id: id }, callback);
+schema.statics.findOnList = (id, callback) => {
+	team.findOne({ id: id }, callback);
 };
 
-schema.statics.findall = function (callback) {
-	let category = this;
-	category.find({}, callback);
+schema.statics.findall = (callback) => {
+	team.find({}, callback);
 };
 
 
-exports.Category = mongoose.model('Category', schema);
+exports.Team = mongoose.model('Team', schema);
