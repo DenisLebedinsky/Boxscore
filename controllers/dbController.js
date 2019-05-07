@@ -1,25 +1,37 @@
-const statsNBA = require("../models/nba").statsNBA;
+const StatsNBA = require("../models/nba").StatsNBA;
 const StatsMLB = require("../models/mlb").StatsMLB;
 const controller = {};
-/*
-controller.saveNBA = data => {
-  var nba = new NBA({data});
-  nba.save(err => {
+
+controller.saveUpdateNBA = data => {
+  data.id = Math.floor(Math.random() * 100000000);
+  data.updated_at = new Date();
+
+  StatsNBA.find({}, (err, docs) => {
     if (err) throw err;
-    console.log("data NBA save in db");
+    if (docs.length > 0) {
+      var doc = docs[0];
+      doc.updateOne(data, err => {
+        if (err) throw err;
+      });
+    } else {
+      var mlb = new StatsNBA(data);
+      mlb.save(data, err => {
+        if (err) throw err;
+				console.log("data NBA save");
+      });
+    }
   });
 };
-*/
+
 controller.saveUpdateMLB = data => {
   preparation(data);
 
-  StatsMLB.find({}, (err, nba) => {
+  StatsMLB.find({}, (err, docs) => {
     if (err) throw err;
-    if (nba.length > 0) {
-      var doc = nba[0];
+    if (docs.length > 0) {
+      var doc = docs[0];
       doc.updateOne(data, err => {
-				if (err) throw err;
-				
+        if (err) throw err;
       });
     } else {
       var mlb = new StatsMLB(data);

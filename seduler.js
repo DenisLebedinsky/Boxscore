@@ -16,7 +16,20 @@ schedule.scheduleJob("*/15 * * * * *", function() {
     .catch(function(error) {
 			if(error) throw error
       console.log("error");
-    });
+		});
+		
+	// ------- NBA ---------
+			axios
+        .get(
+          "https://chumley.barstoolsports.com/dev/data/games/6c974274-4bfc-4af8-a9c4-8b926637ba74.json"
+        )
+        .then(function(response) {
+          controller.saveUpdateNBA(response.data);
+        })
+        .catch(function(error) {
+          if (error) throw error;
+          console.log("error");
+        });
 });
 
 module.exports = schedule;
