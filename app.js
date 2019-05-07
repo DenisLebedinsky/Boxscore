@@ -4,7 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
-var schedule = require("node-schedule");
+var cors = require("cors");
+
+var sheduler = require('./seduler');
+
 
 var app = express();
 
@@ -13,13 +16,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 app.use('/', indexRouter);
 
-// shedule 
-var j = schedule.scheduleJob("*/15 * * * * *", function() {
-  console.log("The answer to life, the universe, and everything!");
-});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
