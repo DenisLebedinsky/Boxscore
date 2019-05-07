@@ -7,6 +7,10 @@ const schema = new Schema({
     unique: true,
     required: true
   },
+  updated_at: {
+    type: Date,
+    default: Date.now
+  },
   league: {
     type: String
   },

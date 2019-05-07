@@ -7,6 +7,9 @@ const schema = new Schema({
     unique: true,
     required: true
   },
+  updated_at: {
+    type: Date,
+  },
   league: {
     type: String
   },
@@ -388,7 +391,7 @@ const schema = new Schema({
       loss: {
         type: Boolean
       },
-      save: {
+      _save: {
         type: Boolean
       },
       hold: {
@@ -436,7 +439,7 @@ const schema = new Schema({
       hit_by_pitch: {
         type: Number
       },
-      errors: {
+      _errors: {
         type: Number
       },
       team_abbreviation: {
@@ -464,7 +467,7 @@ const schema = new Schema({
       loss: {
         type: Boolean
       },
-      save: {
+      _save: {
         type: Boolean
       },
       hold: {
@@ -512,7 +515,7 @@ const schema = new Schema({
       hit_by_pitch: {
         type: Number
       },
-      errors: {
+      _errors: {
         type: Number
       },
       team_abbreviation: {
@@ -531,7 +534,7 @@ const schema = new Schema({
       display_name: {
         type: String
       },
-      errors: {
+      _errors: {
         type: Number
       },
       team_abbreviation: {}
@@ -548,7 +551,7 @@ const schema = new Schema({
       display_name: {
         type: String
       },
-      errors: {
+      _errors: {
         type: Number
       },
       team_abbreviation: {
