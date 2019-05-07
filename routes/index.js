@@ -6,8 +6,8 @@ const getData = require('../controllers/getData')
 const converter = require('../controllers/converter')
 const controller = require('../controllers/dbController')
 
-router.get('/:league', function(req, res, next) {
-    if (req.params.league === 'nba') {
+router.get('/data', function(req, res, next) {
+    if (req.query.league === 'nba') {
         StatsNBA.find({}, async function(err, dataArr) {
             if (err) throw err
             const data = dataArr[0]
@@ -23,7 +23,9 @@ router.get('/:league', function(req, res, next) {
             } else {
                 StatsNBA.find({}, function(err, response) {
                     if (err) throw err
-                    const dataToClient = converter.toClientNBA(response[0].data)
+                    const dataToClient = converter.toClientNBA(
+                        response[0].data,
+                    )
                     res.send(dataToClient)
                 })
             }
@@ -44,7 +46,9 @@ router.get('/:league', function(req, res, next) {
             } else {
                 StatsMLB.find({}, function(err, response) {
                     if (err) throw err
-                    const dataToClient = converter.toClientMLB(response[0].data)
+                    const dataToClient = converter.toClientMLB(
+                        response[0].data,
+                    )
                     res.send(dataToClient)
                 })
             }
