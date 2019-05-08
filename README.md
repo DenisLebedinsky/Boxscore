@@ -23,12 +23,15 @@ node.js version >10.15.1
 npm version >6.4.1
 ```
 
-You need add .env file with environments
+### environments
+You need add .env file
 
+```
 MONGODB_URI=<YOU MONGO URI>
 PORT=<YOU PORT>
 NBA=https://chumley.barstoolsports.com/dev/data/games/6c974274-4bfc-4af8-a9c4-8b926637ba74.json
 MLB=https://chumley.barstoolsports.com/dev/data/games/eed38457-db28-4658-ae4f-4d4d38e9e212.json
+```
 
 ### Installing
 
@@ -54,9 +57,7 @@ npm run dev
 npm run start
 ```
 
-## Deployment
-
  
 ## Authors
 
-Denis Lebedinsky 
+Denis Lebedinsky https://github.com/DenisLebedinsky
