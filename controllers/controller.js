@@ -7,24 +7,21 @@ const controller = {
         if (league) {
             try {
                 const game = await Game.findOne({ league: league })
-                if (game) {
-                    if (Date.now() - game.updatedAt.getTime() > 15 * 1000) {
-                        const result = await getData(league)
-                        await dbController.saveUpdateGame(result.data)
-                        res.send(result.data)
-                    } else {
-                        res.send(game)
-                    }
-                } else {
+                if (
+                    !game ||
+                    Date.now() - game.updatedAt.getTime() > 15 * 1000
+                ) {
                     const result = await getData(league)
                     await dbController.saveUpdateGame(result.data)
+                    res.send(result.data)
+                } else {
+                    res.send(game)
                 }
             } catch (err) {
                 return next(err)
             }
         } else {
-						res.status(200)
-						res.send('null')
+            res.send(null)
         }
     },
 }
