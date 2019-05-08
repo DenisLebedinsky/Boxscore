@@ -11,9 +11,10 @@ controller.saveUpdateGame = async data => {
         officials,
         event_information,
         ...rest
-		} = data
-		
-		const res = await Game.updateOne(
+    } = data
+
+    try {
+        await Game.updateOne(
             { league },
             {
                 league,
@@ -26,7 +27,10 @@ controller.saveUpdateGame = async data => {
                 extentions: rest,
             },
             { upsert: true },
-				)	
+        )
+    } catch (err) {
+			if(err) throw err;
+		}
 }
 
 module.exports = controller
