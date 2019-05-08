@@ -1,23 +1,14 @@
-var axios = require('axios')
+const axios = require('axios')
 
 function getData(league) {
-    let url
-    switch (league) {
-        case 'NBA':
-            url = process.env.NBA
-            break
-        case 'MLB':
-            url = process.env.MLB
-            break
-    }
+    const url = process.env[league]
     return axios
         .get(url)
         .then(function(response) {
             return response
         })
-        .catch(function(error) {
-            if (error) throw error
-            console.log('error')
+        .catch(function(err) {
+            console.error(err)
         })
 }
 

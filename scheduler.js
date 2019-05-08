@@ -1,17 +1,23 @@
 const schedule = require('node-schedule')
 const getData = require('./controllers/getData')
-var controller = require('./controllers/dbController')
+const dbController = require('./controllers/dbController')
 
-// shedule
 schedule.scheduleJob('*/15 * * * * *', async function() {
-		const league = ['NBA', 'MLB'];
-		
-		const arr = league.map(typeLeague => getData(typeLeague))
+    const league = ['NBA', 'MLB', 'ad1']
 
-		const res = await Promise.all(arr)
-		
-		res.forEach(info => controller.saveUpdateGame(info.data))
-		
+    const arr = league.map(typeLeague =>
+        getData(typeLeague).catch(function() {}),
+    )
+
+    const res = await Promise.all(arr)
+
+    res.forEach(info => {
+        if (info) {
+            try {
+                dbController.saveUpdateGame(info.data)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+    })
 })
-
-module.exports = schedule

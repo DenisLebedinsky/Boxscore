@@ -51,7 +51,7 @@ npm run test
 npm run dev
 ```
 
-### Running dev
+### Running prodaction
 
 ```
 npm run start
