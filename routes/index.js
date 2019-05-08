@@ -4,7 +4,7 @@ const controller = require('../controllers/controller')
 
 // - перенести в контроллер
 router.get('/data', function(req, res, next) {
-    controller.getQuery(req.query.league, res, next)
+    controller.checkFeed(req.query.league, res, next)
 })
 
 module.exports = router

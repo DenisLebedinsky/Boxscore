@@ -1,9 +1,8 @@
-const getData = require('./getData')
-const dbController = require('./dbController')
 const Game = require('../models/game').Game
+const axios = require('axios')
 
 const controller = {
-    getQuery: async (league, res, next) => {
+    checkFeed: async (league, res, next) => {
         if (!league) {
             return res.send(null)
         }
@@ -11,14 +10,56 @@ const controller = {
             const game = await Game.findOne({ league: league })
 
             if (!game || Date.now() - game.updatedAt.getTime() > 15 * 1000) {
-                const result = await getData(league)
-                await dbController.saveUpdateGame(result.data)
+                const result = await this.fetchData(league)
+                await this.pdateGame(result.data)
                 return res.send(result.data)
             }
             res.send(game)
         } catch (err) {
             return next(err)
         }
+    },
+    updateGame: async (data, next) => {
+        const {
+            league,
+            away_team,
+            home_team,
+            away_period_scores,
+            home_period_scores,
+            officials,
+            event_information,
+            ...rest
+        } = data
+
+        try {
+            await Game.updateOne(
+                { league },
+                {
+                    league,
+                    away_team,
+                    home_team,
+                    away_period_scores,
+                    home_period_scores,
+                    officials,
+                    event_information,
+                    extentions: rest,
+                },
+                { upsert: true },
+            )
+        } catch (err) {
+            return next(err)
+        }
+    },
+    fetchData(league) {
+        const url = process.env[league]
+        return axios
+            .get(url)
+            .then(function(response) {
+                return response
+            })
+            .catch(function(err) {
+                console.error(err)
+            })
     },
 }
 
