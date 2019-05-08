@@ -3,7 +3,7 @@ const getData = require('./controllers/getData')
 const dbController = require('./controllers/dbController')
 
 schedule.scheduleJob('*/15 * * * * *', async function() {
-    const league = ['NBA', 'MLB', 'ad1']
+    const league = ['NBA', 'MLB']
 
     const arr = league.map(typeLeague =>
         getData(typeLeague).catch(function() {}),
