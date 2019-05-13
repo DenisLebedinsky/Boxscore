@@ -4,7 +4,10 @@ module.exports = {
         const io = require('socket.io')(server)
         io.on('connection', function(socket) {
             eventEmmiter.on('notify', data => {
-                socket.emit('updateData', data)
+                data.forEach(el => {
+                    console.log(el.league)
+                    socket.emit('update_data_' + el.league, el)
+                })
             })
         })
     },
