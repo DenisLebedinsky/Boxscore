@@ -1,5 +1,6 @@
 const schedule = require('node-schedule')
 const controller = require('./controllers/controller')
+const eventEmmiter = require('./eventEmmitter')
 
 schedule.scheduleJob('*/15 * * * * *', async function() {
     const league = ['NBA', 'MLB']
@@ -10,13 +11,17 @@ schedule.scheduleJob('*/15 * * * * *', async function() {
 
     const res = await Promise.all(arr)
 
-    res.forEach(info => {
+		const resData = res.map(el => el.data)
+
+    resData.forEach(info => {
         if (info) {
             try {
-                controller.updateGame(info.data)
+                controller.updateGame(info)
             } catch (err) {
                 console.error(err)
             }
         }
     })
+		
+		eventEmmiter.emit('notify', resData)
 })
