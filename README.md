@@ -23,8 +23,8 @@ node.js version >10.15.1
 npm version >6.4.1
 ```
 
-### environments
-You need add .env file
+### Environments
+You need to add .env file
 
 ```
 MONGODB_URI=<YOU MONGO URI>
@@ -51,7 +51,7 @@ npm run test
 npm run dev
 ```
 
-### Running prodaction
+### Running production
 
 ```
 npm run start
