@@ -28,7 +28,7 @@ describe('controller', function() {
         expect(res.league).equal(data.league)
     })
 
-    it('fetch data', async () => {
+    it('fetch data from api', async () => {
         const fetchData = await controller.fetchData(data.league)
         expect(fetchData.data.league).equal(data.league)
     })
