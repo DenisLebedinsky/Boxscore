@@ -46,17 +46,19 @@ controller.fetchData = league => {
         })
 }
 controller.checkFeed = async (league, res, next) => {
-    if (!league) {
+
+	if (!league) {
         return res.send(null)
     }
     try {
         const game = await Game.findOne({ league: league })
-
+				//console.log(game)
         if (!game || Date.now() - game.updatedAt.getTime() > 15 * 1000) {
             const result = await controller.fetchData(league)
             await controller.pdateGame(result.data)
             return res.send(result.data)
-        }
+				}
+			
         res.send(game)
     } catch (err) {
         return next(err)
